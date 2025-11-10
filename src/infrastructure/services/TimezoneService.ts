@@ -248,6 +248,23 @@ export class TimezoneService implements ITimezoneService {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+
+  /**
+   * Get current date as ISO string (YYYY-MM-DDTHH:mm:ss.sssZ)
+   * @returns Current date in ISO format
+   */
+  getCurrentISOString(): string {
+    return new Date().toISOString();
+  }
+
+  /**
+   * Format date to ISO datetime string (YYYY-MM-DDTHH:mm:ss.sssZ)
+   * @param date - Date to format
+   * @returns ISO datetime string
+   */
+  formatToISOString(date: Date): string {
+    return date.toISOString();
+  }
 }
 
 // Export singleton instance

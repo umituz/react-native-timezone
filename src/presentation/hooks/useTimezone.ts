@@ -79,6 +79,12 @@ export interface UseTimezoneReturn {
 
   /** Format date to ISO string (YYYY-MM-DD) */
   formatDateToString: (date: Date) => string;
+
+  /** Get current date as ISO string (YYYY-MM-DDTHH:mm:ss.sssZ) */
+  getCurrentISOString: () => string;
+
+  /** Format date to ISO datetime string (YYYY-MM-DDTHH:mm:ss.sssZ) */
+  formatToISOString: (date: Date) => string;
 }
 
 /**
@@ -137,6 +143,14 @@ export const useTimezone = (): UseTimezoneReturn => {
     return timezoneService.formatDateToString(date);
   }, []);
 
+  const getCurrentISOString = useCallback(() => {
+    return timezoneService.getCurrentISOString();
+  }, []);
+
+  const formatToISOString = useCallback((date: Date) => {
+    return timezoneService.formatToISOString(date);
+  }, []);
+
   return {
     timezone: timezoneInfo.timezone,
     timezoneInfo,
@@ -149,6 +163,8 @@ export const useTimezone = (): UseTimezoneReturn => {
     startOfDay,
     endOfDay,
     formatDateToString,
+    getCurrentISOString,
+    formatToISOString,
   };
 };
 

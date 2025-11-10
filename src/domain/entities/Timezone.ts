@@ -105,7 +105,15 @@ export interface ITimezoneService {
 
   /** Format date to ISO string (YYYY-MM-DD) */
   formatDateToString(date: Date): string;
+
+  /** Get current date as ISO string (YYYY-MM-DDTHH:mm:ss.sssZ) */
+  getCurrentISOString(): string;
+
+  /** Format date to ISO datetime string (YYYY-MM-DDTHH:mm:ss.sssZ) */
+  formatToISOString(date: Date): string;
 }
+
+
 
 
 
