@@ -265,6 +265,61 @@ export class TimezoneService implements ITimezoneService {
   formatToISOString(date: Date): string {
     return date.toISOString();
   }
+
+  /**
+   * Format date to relative time string (e.g., "Today", "Yesterday", "2 days ago")
+   * @param date - Date to format
+   * @param locale - Locale string (e.g., "en-US", "tr-TR")
+   * @returns Relative time string
+   */
+  formatRelativeTime(date: Date, locale: string = 'en-US'): string {
+    const now = new Date();
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) {
+      return locale.startsWith('tr') ? 'Bugün' : 'Today';
+    }
+    if (diffInDays === 1) {
+      return locale.startsWith('tr') ? 'Dün' : 'Yesterday';
+    }
+    if (diffInDays < 7) {
+      return locale.startsWith('tr')
+        ? `${diffInDays} gün önce`
+        : `${diffInDays} days ago`;
+    }
+
+    // For older dates, use locale-aware date formatting
+    return this.formatDate(date, locale, {
+      month: 'short',
+      day: 'numeric',
+      year: diffInDays > 365 ? 'numeric' : undefined,
+    });
+  }
+
+  /**
+   * Format date and time together with locale support
+   * @param date - Date to format
+   * @param locale - Locale string (e.g., "en-US", "tr-TR")
+   * @param options - Intl.DateTimeFormatOptions
+   * @returns Formatted date and time string
+   */
+  formatDateTime(
+    date: Date,
+    locale: string = 'en-US',
+    options?: Intl.DateTimeFormatOptions,
+  ): string {
+    const defaultOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      ...options,
+    };
+
+    return new Intl.DateTimeFormat(locale, defaultOptions).format(date);
+  }
 }
 
 // Export singleton instance

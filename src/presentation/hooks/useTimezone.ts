@@ -85,6 +85,15 @@ export interface UseTimezoneReturn {
 
   /** Format date to ISO datetime string (YYYY-MM-DDTHH:mm:ss.sssZ) */
   formatToISOString: (date: Date) => string;
+
+  /** Format date to relative time string (e.g., "Today", "Yesterday", "2 days ago") */
+  formatRelativeTime: (date: Date) => string;
+
+  /** Format date and time together with locale support */
+  formatDateTime: (
+    date: Date,
+    options?: Intl.DateTimeFormatOptions,
+  ) => string;
 }
 
 /**
@@ -151,6 +160,20 @@ export const useTimezone = (): UseTimezoneReturn => {
     return timezoneService.formatToISOString(date);
   }, []);
 
+  const formatRelativeTime = useCallback(
+    (date: Date) => {
+      return timezoneService.formatRelativeTime(date, currentLanguage);
+    },
+    [currentLanguage],
+  );
+
+  const formatDateTime = useCallback(
+    (date: Date, options?: Intl.DateTimeFormatOptions) => {
+      return timezoneService.formatDateTime(date, currentLanguage, options);
+    },
+    [currentLanguage],
+  );
+
   return {
     timezone: timezoneInfo.timezone,
     timezoneInfo,
@@ -165,6 +188,8 @@ export const useTimezone = (): UseTimezoneReturn => {
     formatDateToString,
     getCurrentISOString,
     formatToISOString,
+    formatRelativeTime,
+    formatDateTime,
   };
 };
 
