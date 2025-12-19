@@ -94,6 +94,9 @@ export interface UseTimezoneReturn {
     date: Date,
     options?: Intl.DateTimeFormatOptions,
   ) => string;
+
+  /** Get list of available timezones */
+  getTimezones: () => TimezoneInfo[];
 }
 
 /**
@@ -174,8 +177,12 @@ export const useTimezone = (): UseTimezoneReturn => {
     [currentLanguage],
   );
 
+  const getTimezones = useCallback(() => {
+    return timezoneService.getTimezones();
+  }, []);
+
   return {
-    timezone: timezoneInfo.timezone,
+    timezone: timezoneInfo.timezone || '',
     timezoneInfo,
     formatDate,
     formatTime,
@@ -190,6 +197,7 @@ export const useTimezone = (): UseTimezoneReturn => {
     formatToISOString,
     formatRelativeTime,
     formatDateTime,
+    getTimezones,
   };
 };
 

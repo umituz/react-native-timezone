@@ -111,6 +111,9 @@ export interface ITimezoneService {
 
   /** Format date to ISO datetime string (YYYY-MM-DDTHH:mm:ss.sssZ) */
   formatToISOString(date: Date): string;
+
+  /** Get list of common timezones for selection */
+  getTimezones(): TimezoneInfo[];
 }
 
 
