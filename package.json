@@ -1,6 +1,6 @@
 {
   "name": "@umituz/react-native-timezone",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Timezone detection and date/time utilities for React Native apps",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -23,7 +23,7 @@
     "intl",
     "locale"
   ],
-  "author": "\u00dcmit UZ <umit@umituz.com>",
+  "author": "Ümit UZ <umit@umituz.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -56,6 +56,3 @@
     "LICENSE"
   ]
 }
-
-
-
